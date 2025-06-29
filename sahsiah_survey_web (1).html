@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Penilaian Sahsiah Kendiri</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f9f9f9;
+      padding: 20px;
+      max-width: 800px;
+      margin: auto;
+    }
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+    .soalan {
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    select {
+      width: 100%;
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    #keputusan {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #444;
+    }
+  </style>
+</head>
+<body>
+
+<h2>Penilaian Sahsiah Kendiri</h2>
+<form id="borang">
+  <div class="soalan">
+    <label>1. Saya bertindak dengan jujur walaupun tiada siapa melihat.</label>
+    <select name="q1">
+      <option value="0">Tidak Pernah</option>
+      <option value="1">Jarang</option>
+      <option value="2">Kerap</option>
+      <option value="3">Sangat Kerap</option>
+    </select>
+  </div>
+  <div class="soalan">
+    <label>2. Saya memberi pertolongan kepada orang lain tanpa mengharapkan balasan.</label>
+    <select name="q2">
+      <option value="0">Tidak Pernah</option>
+      <option value="1">Jarang</option>
+      <option value="2">Kerap</option>
+      <option value="3">Sangat Kerap</option>
+    </select>
+  </div>
+  <div class="soalan">
+    <label>3. Saya mengakui kesalahan saya apabila melakukan kesilapan.</label>
+    <select name="q3">
+      <option value="0">Tidak Pernah</option>
+      <option value="1">Jarang</option>
+      <option value="2">Kerap</option>
+      <option value="3">Sangat Kerap</option>
+    </select>
+  </div>
+  <div class="soalan">
+    <label>4. Saya cepat marah apabila ditegur atau dikritik.</label>
+    <select name="q4">
+      <option value="0">Tidak Pernah</option>
+      <option value="1">Jarang</option>
+      <option value="2">Kerap</option>
+      <option value="3">Sangat Kerap</option>
+    </select>
+  </div>
+  <div class="soalan">
+    <label>5. Saya menepati janji yang telah saya buat.</label>
+    <select name="q5">
+      <option value="0">Tidak Pernah</option>
+      <option value="1">Jarang</option>
+      <option value="2">Kerap</option>
+      <option value="3">Sangat Kerap</option>
+    </select>
+  </div>
+  <div class="soalan">
+    <label>6. Saya suka membandingkan diri dengan orang lain dan berasa tidak puas hati.</label>
+    <select name="q6">
+      <option value="0">Tidak Pernah</option>
+      <option value="1">Jarang</option>
+      <option value="2">Kerap</option>
+      <option value="3">Sangat Kerap</option>
+    </select>
+  </div>
+  <div class="soalan">
+    <label>7. Saya berusaha melakukan yang terbaik walaupun kerja itu sukar.</label>
+    <select name="q7">
+      <option value="0">Tidak Pernah</option>
+      <option value="1">Jarang</option>
+      <option value="2">Kerap</option>
+      <option value="3">Sangat Kerap</option>
+    </select>
+  </div>
+  <div class="soalan">
+    <label>8. Saya bercakap kasar atau menyakitkan hati orang lain tanpa sebab.</label>
+    <select name="q8">
+      <option value="0">Tidak Pernah</option>
+      <option value="1">Jarang</option>
+      <option value="2">Kerap</option>
+      <option value="3">Sangat Kerap</option>
+    </select>
+  </div>
+  <div class="soalan">
+    <label>9. Saya berusaha mengawal emosi dalam situasi yang mencabar.</label>
+    <select name="q9">
+      <option value="0">Tidak Pernah</option>
+      <option value="1">Jarang</option>
+      <option value="2">Kerap</option>
+      <option value="3">Sangat Kerap</option>
+    </select>
+  </div>
+  <div class="soalan">
+    <label>10. Saya menilai orang lain tanpa mengenali mereka terlebih dahulu.</label>
+    <select name="q10">
+      <option value="0">Tidak Pernah</option>
+      <option value="1">Jarang</option>
+      <option value="2">Kerap</option>
+      <option value="3">Sangat Kerap</option>
+    </select>
+  </div>
+  <button type="button" onclick="kiraSkor()">Hantar</button>
+</form>
+
+<p id="keputusan"></p>
+
+<script>
+function kiraSkor() {
+  let skor = 0;
+  const negatif = [4, 6, 8, 10];
+  for (let i = 1; i <= 10; i++) {
+    let nilai = parseInt(document.forms["borang"]["q" + i].value);
+    if (negatif.includes(i)) {
+      nilai = 3 - nilai;
+    }
+    skor += nilai;
+  }
+
+  let keputusan = "";
+  if (skor >= 24) keputusan = "Sahsiah sangat baik.";
+  else if (skor >= 18) keputusan = "Sahsiah baik.";
+  else if (skor >= 12) keputusan = "Sahsiah sederhana.";
+  else keputusan = "Sahsiah kurang baik.";
+
+  document.getElementById("keputusan").innerText = `Skor anda: ${skor}/30\n${keputusan}`;
+}
+</script>
+
+</body>
+</html>
